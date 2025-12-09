@@ -8,15 +8,11 @@ part 'sign_in_state.dart';
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final UserRepository _userRepository;
 
-  SignInBloc(
-    this._userRepository
-  ) : super(SignInInitial()) {
+  SignInBloc(this._userRepository) : super(SignInInitial()) {
     on<SignInRequired>((event, emit) async {
-        emit(SignInProcess());
+      emit(SignInProcess());
       try {
-        await _userRepository.signIn(
-          event.email, event.password,
-        );
+        await _userRepository.signIn(event.email, event.password);
         emit(SignInSuccess());
       } catch (e) {
         emit(SignInFailure());

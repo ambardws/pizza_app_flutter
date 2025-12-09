@@ -19,11 +19,10 @@ class FirebaseUserRepo implements UserRepository {
       if (firebaseUser == null) {
         yield null;
       } else {
-        yield await userCollection
-            .doc(firebaseUser.uid)
-            .get()
-            .then((snapshot) => MyUser.fromEntity(MyUserEntity.fromDocument(snapshot.data()!)));
-        }
+        yield await userCollection.doc(firebaseUser.uid).get().then(
+            (snapshot) =>
+                MyUser.fromEntity(MyUserEntity.fromDocument(snapshot.data()!)));
+      }
     });
   }
 
@@ -35,7 +34,9 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> setUserData(MyUser myUser) async {
     try {
-      await userCollection.doc(myUser.userId).set(myUser.toEntity().toDocument());
+      await userCollection
+          .doc(myUser.userId)
+          .set(myUser.toEntity().toDocument());
     } catch (e) {
       throw Exception(e);
     }
@@ -44,7 +45,8 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> signIn(String email, String password) async {
     try {
-      await _fireBaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await _fireBaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
     } catch (e) {
       throw Exception(e);
     }
@@ -53,7 +55,8 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<MyUser> signUp(MyUser myUser, String password) async {
     try {
-      UserCredential user = await _fireBaseAuth.createUserWithEmailAndPassword(email: myUser.email, password: password);
+      UserCredential user = await _fireBaseAuth.createUserWithEmailAndPassword(
+          email: myUser.email, password: password);
 
       myUser.userId = user.user!.uid;
       return myUser;
@@ -61,7 +64,4 @@ class FirebaseUserRepo implements UserRepository {
       throw Exception(e);
     }
   }
-
-  
-
 }

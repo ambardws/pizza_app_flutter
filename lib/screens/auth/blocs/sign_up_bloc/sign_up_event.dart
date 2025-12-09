@@ -5,7 +5,6 @@ sealed class SignUpEvent extends Equatable {
 
   @override
   List<Object> get props => [];
-  
 }
 
 class SignUpRequired extends SignUpEvent {

@@ -20,7 +20,7 @@ class AuthenticationBloc
     });
 
     on<AuthenticationUserChanged>((event, emit) {
-      if(event.user != null && event.user != MyUser.empty) {
+      if (event.user != null && event.user != MyUser.empty) {
         emit(AuthenticationState.authenticated(event.user!));
       } else {
         emit(const AuthenticationState.unauthenticated());

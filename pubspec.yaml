@@ -46,6 +46,9 @@ dependencies:
   pizza_repository:
     path: packages/pizza_repository
 
+  cart_repository:
+    path: packages/cart_repository
+
 
 
 dev_dependencies:

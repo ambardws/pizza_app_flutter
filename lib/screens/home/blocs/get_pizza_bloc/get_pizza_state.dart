@@ -21,4 +21,3 @@ final class GetPizzaSuccess extends GetPizzaState {
   @override
   List<Object> get props => [pizzas];
 }
-
