@@ -1,12 +1,17 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pizza_app/components/macro.dart';
+import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
 import 'package:pizza_repository/src/models/pizza.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Pizza pizza;
-  const DetailsScreen(this.pizza, {super.key});
+  final String userId;
+
+  const DetailsScreen(this.pizza, this.userId, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +148,18 @@ class DetailsScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          // Handle add to cart action
+                          final cart = Cart(
+                            id:
+                                DateTime.now().millisecondsSinceEpoch
+                                    .toString(),
+                            pizza: pizza,
+                            quantity: 1,
+                            price: pizza.price,
+                          );
+
+                          context.read<AddCartBloc>().add(
+                            AddCart(cart, userId),
+                          );
                         },
                         child: Text(
                           'Add to Cart',

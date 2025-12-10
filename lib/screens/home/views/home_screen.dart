@@ -54,9 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _navigateToDetails(Pizza pizza) {
+    final addCartBloc = context.read<AddCartBloc>();
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DetailsScreen(pizza)),
+      MaterialPageRoute(
+        builder:
+            (context) => MultiBlocProvider(
+              providers: [BlocProvider.value(value: addCartBloc)],
+              child: DetailsScreen(pizza, _userId),
+            ),
+      ),
     );
   }
 
