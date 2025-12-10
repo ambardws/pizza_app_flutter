@@ -6,6 +6,7 @@ import 'package:pizza_app/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:pizza_app/screens/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/get_cart_bloc/get_cart_bloc.dart';
+import 'package:pizza_app/screens/cart/blocs/update_cart_bloc/update_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/views/cart_screen.dart';
 import 'package:pizza_app/screens/home/blocs/get_pizza_bloc/get_pizza_bloc.dart';
 import 'package:pizza_app/screens/home/components/cart_badge.dart';
@@ -63,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // Read BLoCs before navigation to avoid context issues
     final authBloc = context.read<AuthenticationBloc>();
     final cartBloc = context.read<GetCartBloc>();
+    final updateCartBloc = context.read<UpdateCartBloc>();
 
     Navigator.push(
       context,
@@ -72,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               providers: [
                 BlocProvider.value(value: authBloc),
                 BlocProvider.value(value: cartBloc),
+                BlocProvider.value(value: updateCartBloc),
               ],
               child: const CartScreen(),
             ),

@@ -10,7 +10,9 @@ class GetCartBloc extends Bloc<GetCartEvent, GetCartState> {
 
   GetCartBloc(this._cartRepository) : super(GetCartInitial()) {
     on<GetCart>((event, emit) async {
-      emit(GetCartProcess());
+      if (state is! GetCartSuccess) {
+        emit(GetCartProcess());
+      }
       try {
         final carts = await _cartRepository.getCarts(event.userId);
         emit(GetCartSuccess(carts));

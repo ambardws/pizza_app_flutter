@@ -5,6 +5,7 @@ import 'package:pizza_app/screens/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:pizza_app/screens/auth/views/welcome_screen.dart';
 import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/get_cart_bloc/get_cart_bloc.dart';
+import 'package:pizza_app/screens/cart/blocs/update_cart_bloc/update_cart_bloc.dart';
 import 'package:pizza_app/screens/home/blocs/get_pizza_bloc/get_pizza_bloc.dart';
 import 'package:pizza_app/screens/home/views/home_screen.dart';
 import 'package:pizza_repository/pizza_repository.dart';
@@ -50,6 +51,11 @@ class MyAppView extends StatelessWidget {
                 BlocProvider(
                   create:
                       (context) => GetCartBloc(context.read<CartRepository>()),
+                ),
+                BlocProvider(
+                  create:
+                      (context) =>
+                          UpdateCartBloc(context.read<CartRepository>()),
                 ),
               ],
               child: const HomeScreen(),

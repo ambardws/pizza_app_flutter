@@ -8,10 +8,14 @@ class FirebaseCartRepo implements CartRepository {
 
   Future<List<Cart>> getCarts(String userId) async {
     try {
-      return await cartCollection.where('userId', isEqualTo: userId).get().then(
-          (value) => value.docs
-              .map((e) => Cart.fromEntity(CartEntity.fromDocument(e.data())))
-              .toList());
+      return await cartCollection
+          .where('userId', isEqualTo: userId)
+          .get()
+          .then((value) => value.docs.map((e) {
+                final data = e.data();
+                data['id'] = e.id;
+                return Cart.fromEntity(CartEntity.fromDocument(data));
+              }).toList());
     } catch (e) {
       log('Error fetching carts: $e');
       return [];
@@ -26,6 +30,16 @@ class FirebaseCartRepo implements CartRepository {
       });
     } catch (e) {
       log('Error adding cart: $e');
+      return;
+    }
+  }
+
+  Future<void> updateCartQuantity(
+      String userId, String cartId, int newQuantity) async {
+    try {
+      await cartCollection.doc(cartId).update({'quantity': newQuantity});
+    } catch (e) {
+      log('Error updating cart quantity: $e');
       return;
     }
   }

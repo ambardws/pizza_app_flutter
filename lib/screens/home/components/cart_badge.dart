@@ -14,9 +14,9 @@ class CartBadgeWidget extends StatelessWidget {
       builder: (context, state) {
         int totalItems = 0;
 
-        // Calculate total items if cart has items
+        // Calculate total products in cart
         if (state is GetCartSuccess && state.carts.isNotEmpty) {
-          totalItems = state.carts.fold(0, (sum, cart) => sum + cart.quantity);
+          totalItems = state.carts.length;
         }
 
         return Stack(

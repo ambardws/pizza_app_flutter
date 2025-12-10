@@ -5,8 +5,15 @@ import 'package:pizza_app/screens/cart/components/quantity_button.dart';
 
 class CartItem extends StatelessWidget {
   final Cart cart;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
 
-  const CartItem({super.key, required this.cart});
+  const CartItem({
+    super.key,
+    required this.cart,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +77,7 @@ class CartItem extends StatelessWidget {
         QuantityButton(
           icon: CupertinoIcons.minus,
           onPressed: () {
-            // TODO: Implement decrease quantity
+            onDecrement();
           },
         ),
         const SizedBox(width: 10),
@@ -79,7 +86,7 @@ class CartItem extends StatelessWidget {
         QuantityButton(
           icon: CupertinoIcons.plus,
           onPressed: () {
-            // TODO: Implement increase quantity
+            onIncrement();
           },
         ),
       ],
