@@ -32,7 +32,7 @@ class PizzaPriceRow extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: screenWidth * 0.050,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               if (pizza.discount > 0) ...[

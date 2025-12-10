@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:pizza_app/screens/home/components/details/add_to_cart_button.dart';
 import 'package:pizza_app/screens/home/components/details/pizza_image.dart';
 import 'package:pizza_app/screens/home/components/details/pizza_info.dart';

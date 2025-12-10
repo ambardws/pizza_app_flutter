@@ -18,10 +18,14 @@ class OrderInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(color: Colors.grey, blurRadius: 5, offset: Offset(3, 3)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 5,
+            offset: const Offset(3, 3),
+          ),
         ],
       ),
       margin: const EdgeInsets.only(top: 20),
@@ -30,11 +34,11 @@ class OrderInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Order Info',
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onBackground,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -49,7 +53,7 @@ class OrderInfo extends StatelessWidget {
               value: '\$${delivery.toStringAsFixed(2)}',
             ),
             const SizedBox(height: 10),
-            MySeparator(color: Colors.grey.shade300),
+            MySeparator(color: Theme.of(context).dividerColor),
             const SizedBox(height: 20),
             OrderRow(
               label: 'Total:',
@@ -57,14 +61,14 @@ class OrderInfo extends StatelessWidget {
               isBold: true,
             ),
             const SizedBox(height: 20),
-            _buildCheckoutButton(),
+            _buildCheckoutButton(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCheckoutButton() {
+  Widget _buildCheckoutButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -72,14 +76,17 @@ class OrderInfo extends StatelessWidget {
           // TODO: Implement checkout
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).colorScheme.onBackground,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: const Text(
+        child: Text(
           'Checkout Now',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.background,
+            fontSize: 18,
+          ),
         ),
       ),
     );

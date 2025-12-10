@@ -11,10 +11,14 @@ class PizzaImage extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width - (40),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(30),
-        boxShadow: const [
-          BoxShadow(color: Colors.grey, blurRadius: 5, offset: Offset(3, 3)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            blurRadius: 5,
+            offset: const Offset(3, 3),
+          ),
         ],
         image: DecorationImage(image: NetworkImage(picture), fit: BoxFit.cover),
       ),

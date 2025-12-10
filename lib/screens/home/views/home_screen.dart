@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizza_app/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:pizza_app/blocs/theme_bloc/theme_cubit.dart';
 import 'package:pizza_app/screens/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/get_cart_bloc/get_cart_bloc.dart';
@@ -154,6 +155,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           actions: [
+            IconButton(
+              icon: const Icon(Icons.brightness_6),
+              onPressed: () {
+                context.read<ThemeCubit>().toggleTheme();
+              },
+            ),
             CartBadgeWidget(onTap: _navigateToCart),
             IconButton(
               onPressed: () {

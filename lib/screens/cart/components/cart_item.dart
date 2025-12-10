@@ -20,10 +20,14 @@ class CartItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(color: Colors.grey, blurRadius: 5, offset: Offset(3, 3)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 5,
+            offset: const Offset(3, 3),
+          ),
         ],
       ),
       child: Padding(
@@ -33,7 +37,7 @@ class CartItem extends StatelessWidget {
           children: [
             _buildPizzaImage(),
             const SizedBox(width: 20),
-            Expanded(child: _buildCartDetails()),
+            Expanded(child: _buildCartDetails(context)),
           ],
         ),
       ),
@@ -52,26 +56,34 @@ class CartItem extends StatelessWidget {
     );
   }
 
-  Widget _buildCartDetails() {
+  Widget _buildCartDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           cart.pizza.name,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
         ),
         const SizedBox(height: 10),
         Text(
           '\$${cart.price.toStringAsFixed(2)}',
-          style: const TextStyle(fontSize: 16, color: Colors.grey),
+          style: TextStyle(
+            fontSize: 16,
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 10),
-        _buildQuantityControls(),
+        _buildQuantityControls(context),
       ],
     );
   }
 
-  Widget _buildQuantityControls() {
+  Widget _buildQuantityControls(BuildContext context) {
     return Row(
       children: [
         QuantityButton(
@@ -81,7 +93,13 @@ class CartItem extends StatelessWidget {
           },
         ),
         const SizedBox(width: 10),
-        Text('${cart.quantity}', style: const TextStyle(fontSize: 16)),
+        Text(
+          '${cart.quantity}',
+          style: TextStyle(
+            fontSize: 16,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+        ),
         const SizedBox(width: 10),
         QuantityButton(
           icon: CupertinoIcons.plus,

@@ -22,7 +22,10 @@ class OrderRow extends StatelessWidget {
           style: TextStyle(
             fontSize: isBold ? 16 : 14,
             fontWeight: isBold ? FontWeight.bold : FontWeight.w500,
-            color: isBold ? Colors.black : Colors.grey.shade500,
+            color:
+                isBold
+                    ? Theme.of(context).colorScheme.onBackground
+                    : Colors.grey.shade500,
           ),
         ),
         Text(
@@ -30,6 +33,7 @@ class OrderRow extends StatelessWidget {
           style: TextStyle(
             fontSize: isBold ? 16 : 14,
             fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
         ),
       ],

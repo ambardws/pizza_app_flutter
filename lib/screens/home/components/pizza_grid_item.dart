@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:pizza_app/screens/home/components/pizza_price_row.dart';
 import 'package:pizza_app/screens/home/components/pizza_tags_row.dart';
 import 'package:pizza_repository/pizza_repository.dart';
@@ -23,7 +24,7 @@ class PizzaGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 3,
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(screenWidth * 0.05),
       ),
@@ -65,6 +66,7 @@ class PizzaGridItem extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: screenWidth * 0.032,
+                        color: Theme.of(context).colorScheme.onBackground,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -72,7 +74,9 @@ class PizzaGridItem extends StatelessWidget {
                     Text(
                       pizza.description,
                       style: TextStyle(
-                        color: Colors.grey.shade700,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onBackground.withOpacity(0.7),
                         fontSize: screenWidth * 0.025,
                         fontWeight: FontWeight.w300,
                         height: 1.2,

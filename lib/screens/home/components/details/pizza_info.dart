@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pizza_app/components/macro.dart';
 import 'package:pizza_repository/pizza_repository.dart';
@@ -12,10 +13,14 @@ class PizzaInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(color: Colors.grey, blurRadius: 5, offset: Offset(3, 3)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            blurRadius: 5,
+            offset: const Offset(3, 3),
+          ),
         ],
       ),
       child: Padding(
@@ -29,9 +34,10 @@ class PizzaInfo extends StatelessWidget {
                   flex: 2,
                   child: Text(
                     pizza.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
                 ),
@@ -49,15 +55,20 @@ class PizzaInfo extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
+                            color:
+                                Theme.of(context)
+                                    .colorScheme
+                                    .primary, // Primary color usually good for price
                           ),
                         ),
                         if (pizza.discount > 0) ...[
                           Text(
                             '\$${pizza.price}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onBackground.withOpacity(0.5),
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.lineThrough,
                             ),
