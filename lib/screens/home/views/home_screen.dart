@@ -150,7 +150,33 @@ class _HomeScreenState extends State<HomeScreen> {
             CartBadgeWidget(onTap: _navigateToCart),
             IconButton(
               onPressed: () {
-                context.read<SignInBloc>().add(SignOutRequired());
+                final bloc = context.read<SignInBloc>();
+                showDialog(
+                  context: context,
+                  builder:
+                      (context) => AlertDialog(
+                        title: const Text('Sign Out'),
+                        content: const Text(
+                          'Are you sure you want to sign out?',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              bloc.add(SignOutRequired());
+                            },
+                            child: const Text(
+                              'Sign Out',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      ),
+                );
               },
               icon: const Icon(CupertinoIcons.arrow_right_to_line),
             ),

@@ -14,8 +14,8 @@ class QuantityButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
-      width: 30,
+      height: 25,
+      width: 25,
       decoration: const BoxDecoration(
         color: Colors.black,
         shape: BoxShape.circle,

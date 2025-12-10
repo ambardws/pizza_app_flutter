@@ -43,4 +43,13 @@ class FirebaseCartRepo implements CartRepository {
       return;
     }
   }
+
+  Future<void> removeCart(String cartId, String userId) async {
+    try {
+      await cartCollection.doc(cartId).delete();
+    } catch (e) {
+      log('Error removing cart: $e');
+      return;
+    }
+  }
 }

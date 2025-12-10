@@ -7,4 +7,6 @@ abstract class CartRepository {
 
   Future<void> updateCartQuantity(
       String userId, String cartId, int newQuantity);
+
+  Future<void> removeCart(String cartId, String userId);
 }

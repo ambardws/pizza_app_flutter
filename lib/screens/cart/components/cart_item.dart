@@ -81,7 +81,7 @@ class CartItem extends StatelessWidget {
           },
         ),
         const SizedBox(width: 10),
-        Text('${cart.quantity}'),
+        Text('${cart.quantity}', style: const TextStyle(fontSize: 16)),
         const SizedBox(width: 10),
         QuantityButton(
           icon: CupertinoIcons.plus,

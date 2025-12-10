@@ -10,6 +10,7 @@ class UpdateCartBloc extends Bloc<UpdateCartEvent, UpdateCartState> {
   UpdateCartBloc(this._cartRepository) : super(UpdateCartInitial()) {
     on<IncrementCartQuantity>(_onIncrementCartQuantity);
     on<DecrementCartQuantity>(_onDecrementCartQuantity);
+    on<RemoveCartItem>(_onRemoveCartItem);
   }
 
   Future<void> _onIncrementCartQuantity(
@@ -47,6 +48,19 @@ class UpdateCartBloc extends Bloc<UpdateCartEvent, UpdateCartState> {
         event.currentQuantity - 1,
       );
       emit(UpdateCartSuccess(event.cartId, event.currentQuantity - 1));
+    } catch (e) {
+      emit(UpdateCartFailure(event.cartId));
+    }
+  }
+
+  Future<void> _onRemoveCartItem(
+    RemoveCartItem event,
+    Emitter<UpdateCartState> emit,
+  ) async {
+    emit(UpdateCartProcess(event.cartId));
+    try {
+      await _cartRepository.removeCart(event.cartId, event.userId);
+      emit(UpdateCartSuccess(event.cartId, 0));
     } catch (e) {
       emit(UpdateCartFailure(event.cartId));
     }

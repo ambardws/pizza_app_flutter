@@ -86,8 +86,6 @@ class _CartScreenState extends State<CartScreen> {
               final cart = carts[index];
               final userId =
                   context.read<AuthenticationBloc>().state.user?.userId ?? '';
-              print('User ID: $userId');
-              print('Cart ID: ${cart.id}');
               return CartItem(
                 cart: cart,
                 onIncrement: () {
@@ -96,9 +94,39 @@ class _CartScreenState extends State<CartScreen> {
                   );
                 },
                 onDecrement: () {
-                  context.read<UpdateCartBloc>().add(
-                    DecrementCartQuantity(userId, cart.id, cart.quantity),
-                  );
+                  if (cart.quantity > 1) {
+                    context.read<UpdateCartBloc>().add(
+                      DecrementCartQuantity(userId, cart.id, cart.quantity),
+                    );
+                  } else {
+                    final bloc = context.read<UpdateCartBloc>();
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            title: const Text('Remove Item'),
+                            content: const Text(
+                              'Are you sure you want to remove this item from your cart?',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  bloc.add(RemoveCartItem(userId, cart.id));
+                                },
+                                child: const Text(
+                                  'Remove',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
+                          ),
+                    );
+                  }
                 },
               );
             },
