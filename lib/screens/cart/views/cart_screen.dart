@@ -16,48 +16,48 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   @override
-  void initState() {
-    super.initState();
-    // Fetch cart data when screen is first loaded
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final userId =
-          context.read<AuthenticationBloc>().state.user?.userId ?? '';
-      if (userId.isNotEmpty) {
-        context.read<GetCartBloc>().add(GetCart(userId));
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocListener<UpdateCartBloc, UpdateCartState>(
-      listener: (context, state) {
-        if (state is UpdateCartSuccess) {
-          final userId =
-              context.read<AuthenticationBloc>().state.user?.userId ?? '';
-          if (userId.isNotEmpty) {
-            context.read<GetCartBloc>().add(GetCart(userId));
-          }
-        } else if (state is UpdateCartFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to update cart')),
-          );
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(title: const Center(child: Text('Cart'))),
-        body: BlocBuilder<GetCartBloc, GetCartState>(
-          builder: (context, state) {
-            if (state is GetCartProcess) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is GetCartSuccess) {
-              return _buildCartContent(state.carts);
-            } else if (state is GetCartFailure) {
-              return const Center(child: Text('Failed to load cart'));
-            } else {
-              return const Center(child: Text('Your cart is empty'));
+    final userId = context.read<AuthenticationBloc>().state.user?.userId ?? '';
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GetCartBloc(context.read<CartRepository>())
+            ..add(GetCart(userId)),
+        ),
+        BlocProvider(
+          create: (context) => UpdateCartBloc(context.read<CartRepository>()),
+        ),
+      ],
+      child: BlocListener<UpdateCartBloc, UpdateCartState>(
+        listener: (context, state) {
+          if (state is UpdateCartSuccess) {
+            final userId =
+                context.read<AuthenticationBloc>().state.user?.userId ?? '';
+            if (userId.isNotEmpty) {
+              context.read<GetCartBloc>().add(GetCart(userId));
             }
-          },
+          } else if (state is UpdateCartFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Failed to update cart')),
+            );
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(title: const Center(child: Text('Cart'))),
+          body: BlocBuilder<GetCartBloc, GetCartState>(
+            builder: (context, state) {
+              if (state is GetCartProcess) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is GetCartSuccess) {
+                return _buildCartContent(state.carts);
+              } else if (state is GetCartFailure) {
+                return const Center(child: Text('Failed to load cart'));
+              } else {
+                return const Center(child: Text('Your cart is empty'));
+              }
+            },
+          ),
         ),
       ),
     );

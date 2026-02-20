@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
 import 'package:pizza_app/screens/home/components/details/add_to_cart_button.dart';
 import 'package:pizza_app/screens/home/components/details/pizza_image.dart';
 import 'package:pizza_app/screens/home/components/details/pizza_info.dart';
+import 'package:cart_repository/cart_repository.dart';
 import 'package:pizza_repository/src/models/pizza.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -13,19 +15,22 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            PizzaImage(picture: pizza.picture),
-            const SizedBox(height: 30),
-            PizzaInfo(pizza: pizza),
-            const SizedBox(height: 40),
-            AddToCartButton(pizza: pizza, userId: userId),
-          ],
+    return BlocProvider(
+      create: (context) => AddCartBloc(context.read<CartRepository>()),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              PizzaImage(picture: pizza.picture),
+              const SizedBox(height: 30),
+              PizzaInfo(pizza: pizza),
+              const SizedBox(height: 40),
+              AddToCartButton(pizza: pizza, userId: userId),
+            ],
+          ),
         ),
       ),
     );

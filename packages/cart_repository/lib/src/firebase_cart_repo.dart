@@ -24,10 +24,27 @@ class FirebaseCartRepo implements CartRepository {
 
   Future<void> addCart(String userId, Cart cart) async {
     try {
-      await cartCollection.add({
-        'userId': userId,
-        ...cart.toEntity().toDocument(),
-      });
+      // check existing cart - gunakan pizzaId field langsung (bukan nested)
+      final existingCartQuery = await cartCollection
+          .where('userId', isEqualTo: userId)
+          .where('pizzaId', isEqualTo: cart.pizza.pizzaId)
+          .get();
+
+      // if existing cart, update quantity
+      if (existingCartQuery.docs.isNotEmpty) {
+        final existingCartDoc = existingCartQuery.docs.first;
+        final existingCart = Cart.fromEntity(
+          CartEntity.fromDocument(existingCartDoc.data()),
+        );
+
+        await updateCartQuantity(userId, existingCartDoc.id, existingCart.quantity + 1);
+      } else {
+        // if no existing cart, add new
+        await cartCollection.add({
+          'userId': userId,
+          ...cart.toEntity().toDocument(),
+        });
+      }
     } catch (e) {
       log('Error adding cart: $e');
       return;

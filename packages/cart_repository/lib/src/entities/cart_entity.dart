@@ -19,6 +19,7 @@ class CartEntity {
       'pizza': pizza.toEntity().toDocument(),
       'price': price,
       'quantity': quantity,
+      'pizzaId': pizza.pizzaId,  // ← Tambah field pizzaId untuk memudahkan query
     };
   }
 
