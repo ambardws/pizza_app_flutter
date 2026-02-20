@@ -77,40 +77,38 @@ class _HomeScreenState extends State<HomeScreen> {
           onCartTap: () => context.navigateToCart(),
           onSignOut: () => context.showSignOutDialog(),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(screenWidth * 0.04),
-          child: BlocBuilder<GetPizzaBloc, GetPizzaState>(
-            builder: (context, state) {
-              if (state is GetPizzaSuccess) {
-                return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: screenWidth * 0.04,
-                    mainAxisSpacing: screenWidth * 0.04,
-                    childAspectRatio: 0.85,
-                  ),
-                  itemCount: state.pizzas.length,
-                  itemBuilder: (context, index) {
-                    final pizza = state.pizzas[index];
-                    return PizzaGridItem(
-                      pizza: pizza,
-                      screenWidth: screenWidth,
-                      screenHeight: screenHeight,
-                      onAddToCart: () => context.addToCart(pizza),
-                      onTap: () => context.navigateToDetails(
-                        pizza,
-                        context.userId,
-                      ),
-                    );
-                  },
-                );
-              } else if (state is GetPizzaLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return const Center(child: Text('Failed to load pizzas'));
-              }
-            },
-          ),
+        body: BlocBuilder<GetPizzaBloc, GetPizzaState>(
+          builder: (context, state) {
+            if (state is GetPizzaSuccess) {
+              return GridView.builder(
+                padding: EdgeInsets.all(16),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: screenWidth * 0.04,
+                  mainAxisSpacing: screenWidth * 0.04,
+                  childAspectRatio: 0.85,
+                ),
+                itemCount: state.pizzas.length,
+                itemBuilder: (context, index) {
+                  final pizza = state.pizzas[index];
+                  return PizzaGridItem(
+                    pizza: pizza,
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                    onAddToCart: () => context.addToCart(pizza),
+                    onTap: () => context.navigateToDetails(
+                      pizza,
+                      context.userId,
+                    ),
+                  );
+                },
+              );
+            } else if (state is GetPizzaLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return const Center(child: Text('Failed to load pizzas'));
+            }
+          },
         ),
       ),
     );

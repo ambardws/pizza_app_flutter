@@ -25,7 +25,7 @@ class MyAppView extends StatelessWidget {
           themeMode: state,
           theme: ThemeData(
             colorScheme: ColorScheme.light(
-              background: Colors.white,
+              background: Colors.grey.shade200,
               onBackground: Colors.black,
               primary: Colors.blue,
               onPrimary: Colors.white,
