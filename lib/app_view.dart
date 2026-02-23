@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizza_app/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:pizza_app/blocs/theme_bloc/theme_cubit.dart';
+import 'package:pizza_app/main_navigation/main_navigation.dart';
 import 'package:pizza_app/screens/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:pizza_app/screens/auth/views/welcome_screen.dart';
 import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
@@ -72,7 +73,7 @@ class MyAppView extends StatelessWidget {
                               UpdateCartBloc(context.read<CartRepository>()),
                     ),
                   ],
-                  child: const HomeScreen(),
+                  child: const MainNavigation(),
                 );
               } else {
                 return const WelcomeScreen();

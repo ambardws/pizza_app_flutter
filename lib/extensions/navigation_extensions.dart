@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza_app/extensions/cart_extensions.dart';
 import 'package:pizza_app/screens/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:pizza_app/screens/cart/views/cart_screen.dart';
 import 'package:pizza_app/screens/home/views/details_screen.dart';
@@ -16,7 +17,10 @@ extension NavigationContext on BuildContext {
       MaterialPageRoute(
         builder: (context) => DetailsScreen(pizza, userId),
       ),
-    );
+    ).then((_) {
+      // Refresh cart setelah kembali dari DetailsScreen
+      refreshCart();
+    });
   }
 
   /// Navigate to cart screen
@@ -26,7 +30,10 @@ extension NavigationContext on BuildContext {
       MaterialPageRoute(
         builder: (context) => const CartScreen(),
       ),
-    );
+    ).then((_) {
+      // Refresh cart setelah kembali dari CartScreen
+      refreshCart();
+    });
   }
 
   /// Show sign out confirmation dialog
