@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pizza_app/screens/cart/blocs/get_cart_bloc/get_cart_bloc.dart';
-import 'package:pizza_app/screens/cart/views/cart_screen.dart';
 import 'package:pizza_app/screens/favorites/views/favorites_screen.dart';
 import 'package:pizza_app/screens/home/views/home_screen.dart';
 import 'package:pizza_app/screens/orders/views/orders_screen.dart';
@@ -43,7 +40,6 @@ class _MainNavigationState extends State<MainNavigation> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -55,9 +51,10 @@ class _MainNavigationState extends State<MainNavigation> {
       // Bottom Navigation Bar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.light
-              ? Colors.white
-              : Colors.grey.shade800,
+          color:
+              Theme.of(context).brightness == Brightness.light
+                  ? Colors.white
+                  : Colors.grey.shade800,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -128,9 +125,10 @@ class _MainNavigationState extends State<MainNavigation> {
           children: [
             Icon(
               isActive ? activeIcon : icon,
-              color: isActive
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).brightness == Brightness.light
+              color:
+                  isActive
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).brightness == Brightness.light
                       ? Colors.grey.shade600
                       : Colors.grey.shade400,
               size: screenWidth * 0.06,
@@ -141,9 +139,10 @@ class _MainNavigationState extends State<MainNavigation> {
               style: TextStyle(
                 fontSize: screenWidth * 0.028,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                color: isActive
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).brightness == Brightness.light
+                color:
+                    isActive
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).brightness == Brightness.light
                         ? Colors.grey.shade600
                         : Colors.grey.shade400,
               ),

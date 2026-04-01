@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pizza_app/main_navigation/main_navigation.dart';
 
 /// Favorites screen - menampilkan pizza favorit user
 /// TODO: Integrate dengan favorite BLoC
@@ -16,15 +17,25 @@ class FavoritesScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: favoritePizzas.isEmpty
-            ? _buildEmptyState(context, screenWidth, screenHeight)
-            : _buildFavoritesList(context, screenWidth, screenHeight, favoritePizzas),
+        child:
+            favoritePizzas.isEmpty
+                ? _buildEmptyState(context, screenWidth, screenHeight)
+                : _buildFavoritesList(
+                  context,
+                  screenWidth,
+                  screenHeight,
+                  favoritePizzas,
+                ),
       ),
     );
   }
 
   /// Widget untuk state kosong (belum ada favorite)
-  Widget _buildEmptyState(BuildContext context, double screenWidth, double screenHeight) {
+  Widget _buildEmptyState(
+    BuildContext context,
+    double screenWidth,
+    double screenHeight,
+  ) {
     return Center(
       child: Padding(
         padding: EdgeInsets.all(screenWidth * 0.08),
@@ -58,15 +69,15 @@ class FavoritesScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: screenWidth * 0.035,
-                color: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onBackground.withOpacity(0.6),
               ),
             ),
             SizedBox(height: screenHeight * 0.04),
             ElevatedButton(
               onPressed: () {
-                // TODO: Navigate ke home untuk browse pizza
-                // Untuk sekarang hanya print log
-                debugPrint('Navigate to Home');
+                MainNavigation.switchTab(context, 0);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
@@ -126,13 +137,10 @@ class FavoritesScreen extends StatelessWidget {
               mainAxisSpacing: screenHeight * 0.02,
               childAspectRatio: 0.75,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final pizza = favoritePizzas[index];
-                return _buildFavoriteCard(context, screenWidth, pizza);
-              },
-              childCount: favoritePizzas.length,
-            ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final pizza = favoritePizzas[index];
+              return _buildFavoriteCard(context, screenWidth, pizza);
+            }, childCount: favoritePizzas.length),
           ),
         ),
       ],
@@ -140,7 +148,11 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   /// Card untuk setiap favorite pizza
-  Widget _buildFavoriteCard(BuildContext context, double screenWidth, Map<String, dynamic> pizza) {
+  Widget _buildFavoriteCard(
+    BuildContext context,
+    double screenWidth,
+    Map<String, dynamic> pizza,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -164,7 +176,9 @@ class FavoritesScreen extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
                   ),
                   child: Image.asset(
                     pizza['image'] ?? 'assets/1.png',
