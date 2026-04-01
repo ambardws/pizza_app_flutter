@@ -13,6 +13,13 @@ import 'package:pizza_app/screens/profile/views/profile_screen.dart';
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
 
+  static void switchTab(BuildContext context, int index) {
+    final state = context.findAncestorStateOfType<_MainNavigationState>();
+    if (state != null) {
+      state._onTabTapped(index);
+    }
+  }
+
   @override
   State<MainNavigation> createState() => _MainNavigationState();
 }

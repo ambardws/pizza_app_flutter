@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pizza_app/screens/home/views/home_screen.dart';
+import 'package:pizza_app/main_navigation/main_navigation.dart';
 
 class EmptyOrders extends StatelessWidget {
   final double screenWidth;
@@ -51,8 +51,8 @@ class EmptyOrders extends StatelessWidget {
             SizedBox(height: screenHeight * 0.04),
             ElevatedButton(
               onPressed: () {
-                // TODO: Pindah ke tab home
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                // Pindah ke tab home
+                MainNavigation.switchTab(context, 0);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
