@@ -9,7 +9,6 @@ import 'package:pizza_app/screens/cart/blocs/add_cart_bloc/add_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/get_cart_bloc/get_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/update_cart_bloc/update_cart_bloc.dart';
 import 'package:pizza_app/screens/home/blocs/get_pizza_bloc/get_pizza_bloc.dart';
-import 'package:pizza_app/screens/home/views/home_screen.dart';
 import 'package:pizza_repository/pizza_repository.dart';
 import 'package:cart_repository/cart_repository.dart';
 
