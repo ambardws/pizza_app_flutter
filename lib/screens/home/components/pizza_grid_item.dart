@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:pizza_app/screens/home/components/pizza_price_row.dart';
@@ -31,66 +32,85 @@ class PizzaGridItem extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(screenWidth * 0.05),
         onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.network(
-                    pizza.picture,
-                    width: screenWidth * 0.35,
-                    height: screenHeight * 0.15,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        pizza.picture,
+                        width: screenWidth * 0.35,
+                        height: screenHeight * 0.15,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: EdgeInsets.all(screenWidth * 0.025),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        PizzaTagsRow(
+                          pizza: pizza,
+                          screenWidth: screenWidth,
+                          screenHeight: screenHeight,
+                        ),
+                        SizedBox(height: screenHeight * 0.005),
+                        Text(
+                          pizza.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: screenWidth * 0.032,
+                            color: Theme.of(context).colorScheme.onBackground,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          pizza.description,
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onBackground.withOpacity(0.7),
+                            fontSize: screenWidth * 0.025,
+                            fontWeight: FontWeight.w300,
+                            height: 1.2,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Spacer(),
+                        PizzaPriceRow(
+                          pizza: pizza,
+                          screenWidth: screenWidth,
+                          onAddToCart: onAddToCart,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding: EdgeInsets.all(screenWidth * 0.025),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    PizzaTagsRow(
-                      pizza: pizza,
-                      screenWidth: screenWidth,
-                      screenHeight: screenHeight,
-                    ),
-                    SizedBox(height: screenHeight * 0.005),
-                    Text(
-                      pizza.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: screenWidth * 0.032,
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      pizza.description,
-                      style: TextStyle(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onBackground.withOpacity(0.7),
-                        fontSize: screenWidth * 0.025,
-                        fontWeight: FontWeight.w300,
-                        height: 1.2,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const Spacer(),
-                    PizzaPriceRow(
-                      pizza: pizza,
-                      screenWidth: screenWidth,
-                      onAddToCart: onAddToCart,
-                    ),
-                  ],
+            Positioned(
+              top: screenWidth * 0.025,
+              right: screenWidth * 0.025,
+              child: Material(
+                color: Colors.transparent,
+                child: InkResponse(
+                  radius: 12, // Membatasi efek sentuhan (ripple) hanya selebar ikon
+                  splashFactory: InkRipple.splashFactory,
+                  onTap: () {
+                    // Tap event ditelan di sini
+                  },
+                  child: const Icon(CupertinoIcons.heart, color: Colors.red, size: 22),
                 ),
               ),
             ),
