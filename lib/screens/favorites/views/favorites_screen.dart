@@ -32,8 +32,25 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return BlocListener<RemoveFavoritesBloc, RemoveFavoritesState>(
       listener: (context, state) {
         if (state is RemoveFavoritesSuccess) {
-           // Meminta ulang / Refresh daftar favorites dari database!
-           context.read<GetFavoritesBloc>().add(GetFavorites(userId: context.userId));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: const [
+                  Icon(Icons.check_circle, color: Colors.white),
+                  SizedBox(width: 12),
+                  Text('Pizza removed from favorites'),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
+          // Refresh daftar favorites dari database!
+          context.read<GetFavoritesBloc>().add(GetFavorites(userId: context.userId));
         }
       },
       child: Scaffold(
