@@ -28,13 +28,24 @@ class FirebaseFavoritesRepo implements FavoritesRepository {
   @override
   Future<void> addFavorite(String userId, Favorites favorites) async {
     try {
+      // check if favorite already exists
+      final existingFavorites = await favoritesCollection
+          .where('userId', isEqualTo: userId)
+          .where('pizza.pizzaId', isEqualTo: favorites.pizza.pizzaId)
+          .get();
+
+      if (existingFavorites.docs.isNotEmpty) {
+        // SET failure state
+        throw Exception('Favorite already exists');
+      }
+
       await favoritesCollection.add({
         'userId': userId,
         ...favorites.toEntity().toDocument(),
       });
     } catch (e) {
       log('Error adding favorite: $e');
-      return;
+      rethrow;
     }
   }
 

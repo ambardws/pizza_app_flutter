@@ -15,7 +15,10 @@ class AddFavoritesBloc extends Bloc<AddFavoritesEvent, AddFavoritesState> {
           await _favoritesRepository.addFavorite(event.userId, event.favorites);
           emit(AddFavoritesSuccess(event.favorites.pizza.pizzaId));
         } catch (e) {
-          emit(AddFavoritesFailure(pizzaId: event.favorites.pizza.pizzaId));
+          emit(AddFavoritesFailure(
+            pizzaId: event.favorites.pizza.pizzaId,
+            errorMessage: e.toString(),
+          ));
         }
       }
     });

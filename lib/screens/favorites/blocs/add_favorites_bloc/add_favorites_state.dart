@@ -11,11 +11,12 @@ final class AddFavoritesInitial extends AddFavoritesState {}
 
 class AddFavoritesFailure extends AddFavoritesState {
   final String? pizzaId;
+  final String? errorMessage;
 
-  const AddFavoritesFailure({this.pizzaId});
+  const AddFavoritesFailure({this.pizzaId, this.errorMessage});
 
   @override
-  List<Object> get props => [pizzaId ?? ''];
+  List<Object> get props => [pizzaId ?? '', errorMessage ?? ''];
 }
 
 class AddFavoritesProcess extends AddFavoritesState {

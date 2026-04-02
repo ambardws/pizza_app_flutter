@@ -95,13 +95,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             } else if (state is AddFavoritesFailure) {
+              final String errorMessage = state.errorMessage != null && state.errorMessage!.contains('already exists')
+                  ? 'Pizza is already in favorites!'
+                  : 'Failed to add pizza to favorites';
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Row(
-                    children: const [
-                      Icon(Icons.error, color: Colors.white),
-                      SizedBox(width: 12),
-                      Text('Failed to add pizza to favorites'),
+                    children: [
+                      const Icon(Icons.error, color: Colors.white),
+                      const SizedBox(width: 12),
+                      Text(errorMessage),
                     ],
                   ),
                   backgroundColor: Colors.red,
