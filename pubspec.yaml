@@ -49,6 +49,9 @@ dependencies:
   cart_repository:
     path: packages/cart_repository
 
+  favorites_repository:
+    path: packages/favorites_repository
+
 
 
 dev_dependencies:
