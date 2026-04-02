@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:favorites_repository/favorites_repository.dart';
-import 'package:favorites_repository/src/favorites_repo.dart';
 
 part 'get_favorites_event.dart';
 part 'get_favorites_state.dart';

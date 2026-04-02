@@ -2,6 +2,7 @@ import 'package:favorites_repository/favorites_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza_app/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:pizza_app/screens/favorites/blocs/remove_favorites_bloc/remove_favorites_bloc.dart';
 
 class FavoritesCard extends StatelessWidget {
@@ -59,7 +60,15 @@ class FavoritesCard extends StatelessWidget {
                     minSize: 0,
                     onPressed: () {
                       context.read<RemoveFavoritesBloc>().add(
-                        RemoveFavorites(favorites.id),
+                        RemoveFavorites(
+                          context
+                                  .read<AuthenticationBloc>()
+                                  .state
+                                  .user
+                                  ?.userId ??
+                              '',
+                          favorites.id,
+                        ),
                       );
                     },
                     child: Icon(

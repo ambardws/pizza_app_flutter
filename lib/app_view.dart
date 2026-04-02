@@ -11,6 +11,7 @@ import 'package:pizza_app/screens/cart/blocs/get_cart_bloc/get_cart_bloc.dart';
 import 'package:pizza_app/screens/cart/blocs/update_cart_bloc/update_cart_bloc.dart';
 import 'package:pizza_app/screens/favorites/blocs/add_favorites_bloc/add_favorites_bloc.dart';
 import 'package:pizza_app/screens/favorites/blocs/get_favorites_bloc/get_favorites_bloc.dart';
+import 'package:pizza_app/screens/favorites/blocs/remove_favorites_bloc/remove_favorites_bloc.dart';
 import 'package:pizza_app/screens/home/blocs/get_pizza_bloc/get_pizza_bloc.dart';
 import 'package:pizza_repository/pizza_repository.dart';
 import 'package:cart_repository/cart_repository.dart';
@@ -83,6 +84,12 @@ class MyAppView extends StatelessWidget {
                     BlocProvider(
                       create:
                           (context) => GetFavoritesBloc(
+                            context.read<FavoritesRepository>(),
+                          ),
+                    ),
+                    BlocProvider(
+                      create:
+                          (context) => RemoveFavoritesBloc(
                             context.read<FavoritesRepository>(),
                           ),
                     ),
