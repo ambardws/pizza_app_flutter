@@ -6,3 +6,11 @@ sealed class GetFavoritesEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetFavorites extends GetFavoritesEvent {
+  final String userId;
+  const GetFavorites({required this.userId});
+
+  @override
+  List<Object> get props => [userId];
+}
