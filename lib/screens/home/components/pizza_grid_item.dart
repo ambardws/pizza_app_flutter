@@ -102,15 +102,16 @@ class PizzaGridItem extends StatelessWidget {
             Positioned(
               top: screenWidth * 0.025,
               right: screenWidth * 0.025,
-              child: Material(
-                color: Colors.transparent,
-                child: InkResponse(
-                  radius: 12, // Membatasi efek sentuhan (ripple) hanya selebar ikon
-                  splashFactory: InkRipple.splashFactory,
-                  onTap: () {
-                    // Tap event ditelan di sini
-                  },
-                  child: const Icon(CupertinoIcons.heart, color: Colors.red, size: 22),
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                minSize: 0,
+                onPressed: () {
+                  // Mencegah card tertrigger saat logo di klik
+                },
+                child: const Icon(
+                  CupertinoIcons.heart,
+                  color: Colors.red,
+                  size: 22,
                 ),
               ),
             ),
