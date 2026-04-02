@@ -1,4 +1,5 @@
 import 'package:cart_repository/cart_repository.dart';
+import 'package:favorites_repository/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizza_app/app_view.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<CartRepository>(
           create: (context) => FirebaseCartRepo(),
+        ),
+        RepositoryProvider<FavoritesRepository>(
+          create: (context) => FirebaseFavoritesRepo(),
         ),
         BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
       ],

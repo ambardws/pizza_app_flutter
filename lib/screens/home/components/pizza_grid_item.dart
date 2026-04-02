@@ -1,5 +1,9 @@
+import 'package:favorites_repository/favorites_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza_app/extensions/cart_extensions.dart';
+import 'package:pizza_app/screens/favorites/blocs/add_favorites_bloc/add_favorites_bloc.dart';
 
 import 'package:pizza_app/screens/home/components/pizza_price_row.dart';
 import 'package:pizza_app/screens/home/components/pizza_tags_row.dart';
@@ -20,6 +24,18 @@ class PizzaGridItem extends StatelessWidget {
     required this.onAddToCart,
     this.onTap,
   });
+
+  void addFavorites(BuildContext context, Pizza pizza) {
+    final favoriteItem = Favorites(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      userId: context.userId,
+      pizza: pizza,
+    );
+
+    context.read<AddFavoritesBloc>().add(
+      AddFavorite(favoriteItem, context.userId),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +122,7 @@ class PizzaGridItem extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 minSize: 0,
                 onPressed: () {
-                  // Mencegah card tertrigger saat logo di klik
+                  addFavorites(context, pizza);
                 },
                 child: const Icon(
                   CupertinoIcons.heart,
