@@ -42,7 +42,6 @@ class FavoritesList extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: screenWidth * 0.03,
               mainAxisSpacing: screenHeight * 0.02,
-              childAspectRatio: 0.75,
             ),
             delegate: SliverChildBuilderDelegate((context, index) {
               final favorites = favoritePizzas[index];

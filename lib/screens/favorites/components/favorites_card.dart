@@ -1,6 +1,8 @@
 import 'package:favorites_repository/favorites_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza_app/screens/favorites/blocs/remove_favorites_bloc/remove_favorites_bloc.dart';
 
 class FavoritesCard extends StatelessWidget {
   const FavoritesCard({
@@ -50,29 +52,20 @@ class FavoritesCard extends StatelessWidget {
                 ),
                 // Remove favorite button
                 Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        CupertinoIcons.heart_fill,
-                        color: Colors.red,
-                        size: screenWidth * 0.05,
-                      ),
-                      onPressed: () {
-                        // TODO: Remove from favorites
-                        debugPrint('Remove from favorites');
-                      },
+                  top: screenWidth * 0.025,
+                  right: screenWidth * 0.025,
+                  child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    minSize: 0,
+                    onPressed: () {
+                      context.read<RemoveFavoritesBloc>().add(
+                        RemoveFavorites(favorites.id),
+                      );
+                    },
+                    child: Icon(
+                      CupertinoIcons.trash_circle,
+                      color: Colors.red,
+                      size: 22,
                     ),
                   ),
                 ),
