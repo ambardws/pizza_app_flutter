@@ -1,3 +1,4 @@
+import 'package:favorites_repository/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:pizza_app/screens/favorites/components/favorites_card.dart';
 
@@ -13,7 +14,7 @@ class FavoritesList extends StatelessWidget {
   final BuildContext context;
   final double screenWidth;
   final double screenHeight;
-  final List<Map<String, dynamic>> favoritePizzas;
+  final List<Favorites> favoritePizzas;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +45,11 @@ class FavoritesList extends StatelessWidget {
               childAspectRatio: 0.75,
             ),
             delegate: SliverChildBuilderDelegate((context, index) {
-              final pizza = favoritePizzas[index];
+              final favorites = favoritePizzas[index];
               return FavoritesCard(
                 context: context,
                 screenWidth: screenWidth,
-                pizza: pizza,
+                favorites: favorites,
               );
             }, childCount: favoritePizzas.length),
           ),

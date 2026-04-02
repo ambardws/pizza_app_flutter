@@ -1,3 +1,4 @@
+import 'package:favorites_repository/favorites_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,12 +7,12 @@ class FavoritesCard extends StatelessWidget {
     super.key,
     required this.context,
     required this.screenWidth,
-    required this.pizza,
+    required this.favorites,
   });
 
   final BuildContext context;
   final double screenWidth;
-  final Map<String, dynamic> pizza;
+  final Favorites favorites;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,8 @@ class FavoritesCard extends StatelessWidget {
                       top: Radius.circular(20),
                     ),
                   ),
-                  child: Image.asset(
-                    pizza['image'] ?? 'assets/1.png',
+                  child: Image.network(
+                    favorites.pizza.picture,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -85,7 +86,7 @@ class FavoritesCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  pizza['name'] ?? 'Pizza Name',
+                  favorites.pizza.name,
                   style: TextStyle(
                     fontSize: screenWidth * 0.035,
                     fontWeight: FontWeight.bold,
@@ -95,7 +96,7 @@ class FavoritesCard extends StatelessWidget {
                 ),
                 SizedBox(height: screenWidth * 0.01),
                 Text(
-                  '\$${pizza['price'] ?? '0.00'}',
+                  '\$${favorites.pizza.price}',
                   style: TextStyle(
                     fontSize: screenWidth * 0.04,
                     fontWeight: FontWeight.w900,
