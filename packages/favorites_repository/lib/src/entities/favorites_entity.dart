@@ -15,7 +15,7 @@ class FavoritesEntity {
     return {
       'id': id,
       'userId': userId,
-      'pizza': pizza,
+      'pizza': pizza.toEntity().toDocument(), // Mengubah Pizza Object menjadi Map
     };
   }
 
@@ -23,7 +23,7 @@ class FavoritesEntity {
     return FavoritesEntity(
       id: doc['id'],
       userId: doc['userId'],
-      pizza: doc['pizza'],
+      pizza: Pizza.fromEntity(PizzaEntity.fromDocument(doc['pizza'])), // Merakit Map kembali menjadi Pizza Object
     );
   }
 }
